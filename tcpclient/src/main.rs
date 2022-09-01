@@ -7,7 +7,7 @@ fn main() {
     stream.write("hello".as_bytes()).unwrap();
 
     let mut buffer = [0; 5];
-    stream.read(&mut buffer);
+    let _  = stream.read(&mut buffer);
 
     println!("Response from server: {:?}", str::from_utf8(&buffer).unwrap());
 }
