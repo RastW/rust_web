@@ -70,7 +70,7 @@ impl<'a> HttpResponse<'a> {
         response
     }
 
-    fn send_response(&self, write_stream: &mut impl Write) -> Result<()> {
+    pub fn send_response(&self, write_stream: &mut impl Write) -> Result<()> {
         let res = self.clone();
         let response_string = String::from(res);
         let _ = write!(write_stream, "{}", response_string);
@@ -129,15 +129,17 @@ pub mod test {
     #[test]
     fn test_response_struct_creation_200() {
         let response_struct = HttpResponse::new(
-            "200", None, Some("xxxx".into()),
+            "200", None, Some("XXXX".into()),
         );
         let response_expected = HttpResponse {
             version: "HTTP/1.1",
             status_code: "200",
             status_text: "Ok",
-            headers: Some(HashMap::from([("Context-Type", "text/html")])),
-            body: None,
+            headers: Some(HashMap::from([("Content-Type", "text/html")])),
+            body: Some("XXXX".to_string()),
         };
-        assert_eq!(response_struct, response_expected);
+        let http_string: String  = response_struct.into();
+        let actual_string: String = response_expected.into();
+        assert_eq!(http_string, actual_string);
     }
 }
