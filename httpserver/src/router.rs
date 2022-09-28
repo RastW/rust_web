@@ -17,7 +17,8 @@ impl Router {
                 Resource::Path(s) =>
                 // s.split("/").collect::<Vec<&str>>();
                 {
-                    match s.split("/").collect::<Vec<&str>>()[0] {
+                    let paths = s.split("/").collect::<Vec<&str>>();
+                    match paths[1] {
                         "api" => {
                             let resp: HttpResponse = WebServiceHandler::handle(&req);
                             resp.send_response(stream);

@@ -3,7 +3,8 @@ mod handler;
 mod server;
 
 fn main() {
-    println!("Hello, world!");
+    let server = server::Server::new("localhost:3000");
+    server.run();
 }
 
 

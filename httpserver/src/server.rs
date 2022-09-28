@@ -26,10 +26,10 @@ impl<'a> Server<'a> {
 
             let mut read_buffer = [0; 200];
             stream.read(&mut read_buffer).unwrap();
-            let req: String = String::from_utf8(read_buffer.to_vec()).unwrap();
+            let req: HttpRequest = String::from_utf8(read_buffer.to_vec()).unwrap().into();
 
             // 路由到对应handler处理
-            // Router::route(req, &mut stream);
+            Router::route(req, &mut stream);
         }
     }
 }
