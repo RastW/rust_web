@@ -1,6 +1,5 @@
 use http::httprequest::Resource;
 use http::{httprequest::HttpRequest, httpresponse::HttpResponse};
-use serde::__private::de::Content;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::env;
@@ -104,9 +103,10 @@ impl WebServiceHandler {
         let data_path = env::var("DATA_PATH").unwrap_or(default_path);
         let full_path = format!("{}/{}", data_path, "order.json");
 
+        let body = fs::read_to_string(full_path).unwrap().as_str();
+
         // 解析json转为Vec<OrderStatus>
-        let orders: Vec<OrderStatus> = serde_json::from_str(
-            fs::read_to_string(full_path).unwrap().as_str()).unwrap();
+        let orders: Vec<OrderStatus> = serde_json::from_str(body).unwrap();
         orders
     }
 }
