@@ -1,4 +1,5 @@
 pub mod map_tool;
+pub mod lang;
 
 #[cfg(test)]
 mod tests {
